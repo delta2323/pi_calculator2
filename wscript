@@ -24,8 +24,15 @@ def experiment(exp):
       rule = 'python ${SRC} ${sampling_num} ${seed} ${TGT[0].abspath()} > ${TGT[1].abspath()}'
   )
 
-  plot = 'plot.png'
+  average = 'average'
   exp(source = result,
+      target = average,
+      aggregate_by = ['seed'],
+      rule = maflib.rules.average
+  )
+
+  plot = 'plot.png'
+  exp(source = average,
       target = plot,
       aggregate_by = ['sampling_num'],
       rule = p.simple_plot
