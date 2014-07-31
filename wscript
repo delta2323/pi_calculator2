@@ -11,7 +11,6 @@ def build(bld):
 def experiment(exp):
   import random
   import plot.plot as p
-  random.seed(0)
 
   simulator, result, log = 'app/simulator.py', 'result', 'log'
   simulation_num = 4
