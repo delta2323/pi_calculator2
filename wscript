@@ -16,8 +16,8 @@ def experiment(exp):
   simulation_num = 4
   exp(source = simulator,
       target = [result, log],
-      parameters = [{'sampling_num' : int(math.pow(10, i)) for i in xrange(simulation_num)}],
-      rule = 'python ${SRC} ${sampling_num} ${seed} ${TGT[0].abspath()} > ${TGT[1].abspath()}'
+      parameters = [{'sampling_num' : int(math.pow(10, i))} for i in xrange(simulation_num)],
+      rule = 'python ${SRC} ${sampling_num} ${TGT[0].abspath()} > ${TGT[1].abspath()}'
   )
 
   plot = 'plot.png'
