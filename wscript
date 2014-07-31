@@ -11,13 +11,17 @@ def build(bld):
 def experiment(exp):
   import random
   import plot.plot as p
+  import maflib.util
+  random.seed(0)
 
   simulator, result, log = 'app/simulator.py', 'result', 'log'
   simulation_num = 4
   exp(source = simulator,
       target = [result, log],
-      parameters = [{'sampling_num' : int(math.pow(10, i))} for i in xrange(simulation_num)],
-      rule = 'python ${SRC} ${sampling_num} ${TGT[0].abspath()} > ${TGT[1].abspath()}'
+      parameters = maflib.util.product({'seed' : [random.randint(0, 1000) for i in xrange(4)],
+                                        'sampling_num' : [int(math.pow(10, i)) for i in xrange(4)]
+                                      }),
+      rule = 'python ${SRC} ${sampling_num} ${seed} ${TGT[0].abspath()} > ${TGT[1].abspath()}'
   )
 
   plot = 'plot.png'
